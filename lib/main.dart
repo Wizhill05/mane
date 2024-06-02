@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
+import 'package:mane/screens/shop.dart';
 import 'package:mane/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mane/screens/customer_signup.dart';
 
 void main() {
   runApp(const MainApp());

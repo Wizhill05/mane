@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mane/screens/customer_signup.dart';
+import 'package:mane/screens/signin.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
+  TextEditingController _nameTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   @override
@@ -38,11 +39,11 @@ class _SignInState extends State<SignIn> {
                         padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
                         child: SizedBox(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height / 2.8,
+                          height: MediaQuery.of(context).size.height / 3.95,
                           child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                              "Login to Mane",
+                              "Register",
                               textAlign: TextAlign.left,
                               style: GoogleFonts.josefinSans(
                                   fontSize: 30,
@@ -54,6 +55,11 @@ class _SignInState extends State<SignIn> {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
+                        child: reusableTextField(
+                            "Name", Icons.person, false, _nameTextController),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                         child: reusableTextField(
                             "Email", Icons.email, false, _emailTextController),
                       ),
@@ -96,32 +102,11 @@ class _SignInState extends State<SignIn> {
                                     ),
                                     onPressed: () {},
                                     child: Icon(
-                                      Icons.login_sharp,
+                                      Icons.app_registration_rounded,
                                       color: Light,
                                       size: 23,
                                     ))),
                           ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(bottom: 15),
-                        child: InkWell(
-                          onTap: () {
-                            // Navigate to the Forgot Password page
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Text(
-                                "Forgot Password?",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                       ),
                       Container(
@@ -130,15 +115,15 @@ class _SignInState extends State<SignIn> {
                           onTap: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => SignUp()),
+                              MaterialPageRoute(builder: (context) => SignIn()),
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                            padding: EdgeInsets.fromLTRB(30, 15, 30, 0),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: const Text(
-                                "No account?",
+                                "Return To Sign In",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   color: Colors.white70,
