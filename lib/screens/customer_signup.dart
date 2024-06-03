@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mane/screens/signin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -11,6 +12,40 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  Future<void> makeUser(String name, String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      showDialog(
+          context: context,
+          builder: (context) => alertMe(
+              context,
+              "User Creation Success",
+              [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Ok"))
+              ],
+              const Text("User Created")));
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => alertMe(
+              context,
+              "User Creation Error",
+              [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Ok"))
+              ],
+              Text("$e")));
+    }
+  }
+
   TextEditingController _nameTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
@@ -100,7 +135,12 @@ class _SignUpState extends State<SignUp> {
                                             BorderRadius.circular(5.0),
                                       )),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      makeUser(
+                                          _nameTextController.text,
+                                          _emailTextController.text,
+                                          _passwordTextController.text);
+                                    },
                                     child: Icon(
                                       Icons.app_registration_rounded,
                                       color: Light,
@@ -119,7 +159,7 @@ class _SignUpState extends State<SignUp> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+                            padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: const Text(

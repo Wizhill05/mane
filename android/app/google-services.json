@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "646154546893",
+    "firebase_url": "https://saloon-app-mane-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "saloon-app-mane",
+    "storage_bucket": "saloon-app-mane.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646154546893:android:6ef3bb0c0f805457854384",
+        "android_client_info": {
+          "package_name": "com.example.mane"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL06dK2qNCnD1vwibeYZ8VM1sWMsX4PaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

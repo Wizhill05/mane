@@ -93,3 +93,12 @@ Container uiButton(BuildContext context, String title, Function onTap) {
     ),
   );
 }
+
+AlertDialog alertMe(BuildContext context, String title, actions, contents) {
+  return AlertDialog(
+    actions: actions,
+    contentPadding: EdgeInsets.all(20),
+    content: contents,
+    title: Text(title),
+  );
+}
