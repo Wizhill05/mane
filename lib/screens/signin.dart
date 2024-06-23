@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             SizedBox(
                                 width: 56,
-                                height: 56,
+                                height: 60,
                                 child: ElevatedButton(
                                     style: ButtonStyle(
                                       side: WidgetStateProperty.all(BorderSide(

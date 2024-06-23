@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mane/main.dart';
+import 'package:mane/screens/shop.dart';
 import 'package:mane/screens/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,6 +18,9 @@ class _SignUpState extends State<SignUp> {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      print(getUsername());
+      await createDocumentWithId("users", getUid(),
+          {"name": _nameTextController.text, "type": "user", "email": email});
       showDialog(
           context: context,
           builder: (context) => alertMe(
@@ -24,7 +29,10 @@ class _SignUpState extends State<SignUp> {
               [
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Shop()),
+                      );
                     },
                     child: Text("Ok"))
               ],
@@ -112,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             SizedBox(
                                 width: 56,
-                                height: 56,
+                                height: 60,
                                 child: ElevatedButton(
                                     style: ButtonStyle(
                                       side: WidgetStateProperty.all(BorderSide(

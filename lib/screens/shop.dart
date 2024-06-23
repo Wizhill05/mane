@@ -17,7 +17,7 @@ class _ShopState extends State<Shop> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: toColor("000810"),
+              color: Dark,
             ),
             child: SingleChildScrollView(
                 child: Padding(

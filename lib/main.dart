@@ -43,3 +43,27 @@ class MainApp extends StatelessWidget {
         home: SignIn());
   }
 }
+
+Future<void> createDocumentWithId(String collectionName, String documentId,
+    Map<String, dynamic> documentData) async {
+  FirebaseFirestore.instance
+      .collection(collectionName)
+      .doc(documentId)
+      .set(documentData)
+      .then((value) => print("Document added"))
+      .catchError((error) => print("Failed to add document: $error"));
+}
+
+Future<void> updateDataInFirestore(String collectionName, String documentId,
+    String fieldName, var newValue) async {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  try {
+    await _firestore.collection(collectionName).doc(documentId).update({
+      fieldName: newValue,
+    });
+    debugPrint('Data updated successfully!');
+  } catch (e) {
+    debugPrint('Error updating data: $e');
+  }
+}

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Color Light = toColor("f0f0f0");
@@ -6,7 +8,7 @@ Color Dark = toColor("012367");
 toColor(String hexColor, {double opacity = 1}) {
   hexColor = hexColor.toUpperCase().replaceAll("#", "");
   if (hexColor.length == 6) {
-    hexColor = "FF" + hexColor;
+    hexColor = "FF$hexColor";
   }
   return Color(int.parse(hexColor, radix: 16)).withOpacity(opacity);
 }
@@ -66,34 +68,6 @@ Image ImageWidget(String imageName, double x, double y) {
   );
 }
 
-Container uiButton(BuildContext context, String title, Function onTap) {
-  return Container(
-    width: 500,
-    height: 50,
-    margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
-    child: ElevatedButton(
-      onPressed: () {
-        onTap();
-      },
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Color.fromARGB(255, 214, 214, 214);
-            }
-            return Color.fromARGB(255, 212, 212, 212);
-          }),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
-      child: Text(
-        title,
-        style: const TextStyle(
-            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
-      ),
-    ),
-  );
-}
-
 AlertDialog alertMe(BuildContext context, String title, actions, contents) {
   return AlertDialog(
     actions: actions,
@@ -101,4 +75,19 @@ AlertDialog alertMe(BuildContext context, String title, actions, contents) {
     content: contents,
     title: Text(title),
   );
+}
+
+getUsername() {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? currentUser = auth.currentUser;
+  String username = currentUser?.email ?? 'Login Error';
+  username = username.substring(0, 10);
+  return username;
+}
+
+getUid() {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? currentUser = auth.currentUser;
+  String uid = currentUser?.uid ?? 'Login Error';
+  return uid;
 }
