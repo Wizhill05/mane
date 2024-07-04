@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mane/main.dart';
 import 'package:mane/screens/customer_signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mane/screens/navig.dart';
 import 'package:mane/screens/shop.dart';
 
 class SignIn extends StatefulWidget {
@@ -109,7 +110,8 @@ class _SignInState extends State<SignIn> {
                                         Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Shop()),
+                                              builder: (context) =>
+                                                  navigation()),
                                           (Route<dynamic> route) => false,
                                         );
                                       } catch (e) {

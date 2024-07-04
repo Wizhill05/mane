@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
+import 'package:mane/screens/Bookings.dart';
+import 'package:mane/screens/User.dart';
 import 'package:mane/screens/shop.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -14,7 +16,7 @@ class navigation extends StatefulWidget {
 
 class _navigationState extends State<navigation> {
   int _selectedIndex = 0;
-  static List<Widget> _pages = [Shop(), Shop(), Shop()];
+  static List<Widget> _pages = [Shop(), Bookings(), User()];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
