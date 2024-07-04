@@ -77,12 +77,22 @@ AlertDialog alertMe(BuildContext context, String title, actions, contents) {
   );
 }
 
-getUsername() {
+getUsername() async {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? currentUser = auth.currentUser;
-  String username = currentUser?.email ?? 'Login Error';
-  username = username.substring(0, 10);
-  return username;
+  final firestore = FirebaseFirestore.instance;
+  final userDocRef = firestore.collection('users').doc(getUid());
+  final userDocSnap = await userDocRef.get();
+
+  if (userDocSnap.exists) {
+    final userDocumentData = userDocSnap.data();
+    final username = userDocumentData?['name'] ?? 'Unknown';
+    debugPrint('Username: $username');
+    return username;
+  } else {
+    debugPrint('User document not found');
+    return null;
+  }
 }
 
 getUid() {

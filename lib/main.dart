@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mane/extras/reusable.dart';
+import 'package:mane/screens/navig.dart';
 import 'package:mane/screens/shop.dart';
 import 'package:mane/screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,11 +38,50 @@ class MainApp extends StatelessWidget {
         title: 'Mane',
         theme: ThemeData(
           useMaterial3: false,
-          primarySwatch: Colors.brown,
+          primarySwatch: Colors.lightBlue,
           fontFamily: GoogleFonts.josefinSans().fontFamily,
         ),
-        home: SignIn());
+        home: AuthenticationWrapper());
   }
+}
+
+class AuthenticationWrapper extends StatefulWidget {
+  @override
+  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
+}
+
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkUserAuthentication();
+    });
+  }
+
+  void checkUserAuthentication() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => navigation()),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SignIn();
+  }
+}
+
+class userData {
+  String name, email, type;
+  userData({
+    required this.name,
+    required this.email,
+    required this.type,
+  });
 }
 
 Future<void> createDocumentWithId(String collectionName, String documentId,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mane/main.dart';
 import 'package:mane/screens/customer_signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mane/screens/shop.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -94,7 +97,38 @@ class _SignInState extends State<SignIn> {
                                             BorderRadius.circular(5.0),
                                       )),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      try {
+                                        FirebaseAuth.instance
+                                            .signInWithEmailAndPassword(
+                                                email:
+                                                    _emailTextController.text,
+                                                password:
+                                                    _passwordTextController
+                                                        .text);
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Shop()),
+                                          (Route<dynamic> route) => false,
+                                        );
+                                      } catch (e) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => alertMe(
+                                                context,
+                                                "User Signin Error",
+                                                [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text("Ok"))
+                                                ],
+                                                Text("$e")));
+                                      }
+                                    },
                                     child: Icon(
                                       Icons.login_sharp,
                                       color: Light,

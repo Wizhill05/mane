@@ -29,9 +29,10 @@ class _SignUpState extends State<SignUp> {
               [
                 TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => Shop()),
+                        (Route<dynamic> route) => false,
                       );
                     },
                     child: Text("Ok"))
