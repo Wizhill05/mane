@@ -46,6 +46,9 @@ class _ShopState extends State<Shop> {
             child: SingleChildScrollView(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(children: <Widget>[])))));
+                    child: Column(children: <Widget>[
+                      newcard(context, "Nayeem Hair Cut Saloon",
+                          "Where Style Meets Perfection")
+                    ])))));
   }
 }

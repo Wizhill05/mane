@@ -98,37 +98,42 @@ class _SignInState extends State<SignIn> {
                                             BorderRadius.circular(5.0),
                                       )),
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       try {
-                                        FirebaseAuth.instance
+                                        await FirebaseAuth.instance
                                             .signInWithEmailAndPassword(
-                                                email:
-                                                    _emailTextController.text,
-                                                password:
-                                                    _passwordTextController
-                                                        .text);
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  navigation()),
-                                          (Route<dynamic> route) => false,
-                                        );
+                                          email: _emailTextController.text,
+                                          password:
+                                              _passwordTextController.text,
+                                        )
+                                            .then((userCredential) {
+                                          // Sign-in successful, navigate to next screen
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    navigation()),
+                                            (Route<dynamic> route) => false,
+                                          );
+                                        });
                                       } catch (e) {
+                                        // Sign-in failed, display error message
                                         showDialog(
-                                            context: context,
-                                            builder: (context) => alertMe(
-                                                context,
-                                                "User Signin Error",
-                                                [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text("Ok"))
-                                                ],
-                                                Text("$e")));
+                                          context: context,
+                                          builder: (context) => alertMe(
+                                            context,
+                                            "User Signin Error",
+                                            [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text("Ok"),
+                                              ),
+                                            ],
+                                            Text("$e"),
+                                          ),
+                                        );
                                       }
                                     },
                                     child: Icon(

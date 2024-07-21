@@ -107,3 +107,10 @@ Future<void> updateDataInFirestore(String collectionName, String documentId,
     debugPrint('Error updating data: $e');
   }
 }
+
+getUID() {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? currentUser = auth.currentUser;
+  String uid = currentUser?.uid ?? 'Login Error';
+  return uid;
+}

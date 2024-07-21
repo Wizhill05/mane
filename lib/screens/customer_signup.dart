@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mane/main.dart';
+import 'package:mane/screens/navig.dart';
 import 'package:mane/screens/shop.dart';
 import 'package:mane/screens/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';

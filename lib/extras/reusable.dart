@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import 'package:google_fonts/google_fonts.dart';
 
 Color Light = toColor("f0f0f0");
 Color Dark = toColor("012367");
@@ -100,4 +103,76 @@ getUid() {
   User? currentUser = auth.currentUser;
   String uid = currentUser?.uid ?? 'Login Error';
   return uid;
+}
+
+QrImageView genQR(String data) {
+  return QrImageView(
+    data: data,
+    version: QrVersions.auto,
+    size: 180.0,
+    gapless: false,
+    backgroundColor: Colors.white.withOpacity(0.1),
+    eyeStyle: QrEyeStyle(eyeShape: QrEyeShape.square, color: toColor("121212")),
+    dataModuleStyle: QrDataModuleStyle(
+        dataModuleShape: QrDataModuleShape.circle, color: toColor("121212")),
+    errorStateBuilder: (context, error) {
+      return Center(
+        child: Text(
+          'Error: $error',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+    },
+  );
+}
+
+Container newcard(BuildContext context, String title, String desc,
+    {bool isThumbsUp = false}) {
+  return Container(
+    width: MediaQuery.of(context).size.width * 0.9,
+    height: 200,
+    child: Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: Dark,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
+            child: SingleChildScrollView(
+                child: Column(children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Container(
+                  child: Text(
+                    "$title",
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.josefinSans(
+                      fontSize: 24,
+                      color: toColor("d4d4d4"),
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                width: MediaQuery.of(context).size.width * 0.9 - 30,
+                child: Text(
+                  "$desc",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.dmSans(
+                    fontSize: 16,
+                    color: toColor("d4d4d4"),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ]))),
+      ),
+    ),
+  );
 }
