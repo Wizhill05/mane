@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, unused_import, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,11 +34,11 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => Shop()),
+                        MaterialPageRoute(builder: (context) => const Shop()),
                         (Route<dynamic> route) => false,
                       );
                     },
-                    child: Text("Ok"))
+                    child: const Text("Ok"))
               ],
               const Text("User Created")));
     } catch (e) {
@@ -50,15 +52,15 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("Ok"))
+                    child: const Text("Ok"))
               ],
               Text("$e")));
     }
   }
 
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,10 +80,10 @@ class _SignUpState extends State<SignUp> {
                 )),
             child: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                         child: SizedBox(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height / 3.95,
@@ -160,16 +162,17 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: InkWell(
                           onTap: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => SignIn()),
+                              MaterialPageRoute(
+                                  builder: (context) => const SignIn()),
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+                            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: const Text(

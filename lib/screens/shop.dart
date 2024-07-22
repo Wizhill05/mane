@@ -26,7 +26,7 @@ class _ShopState extends State<Shop> {
             child: Text(
               "Saloons",
               style: GoogleFonts.josefinSans(
-                fontSize: 24,
+                fontSize: 36,
                 color: toColor("ccccdd"),
                 fontWeight: FontWeight.w800,
               ),
@@ -35,9 +35,10 @@ class _ShopState extends State<Shop> {
 
           backgroundColor: Dark,
 
-          toolbarHeight: 60, // Increase the height of the AppBar
+          toolbarHeight: 80, // Increase the height of the AppBar
         ),
         body: Container(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
@@ -47,8 +48,17 @@ class _ShopState extends State<Shop> {
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(children: <Widget>[
-                      newcard(context, "Nayeem Hair Cut Saloon",
-                          "Where Style Meets Perfection")
+                      newcard(
+                          context,
+                          "Nayeem Hair Cut Saloon",
+                          "Where Style Meets Perfection",
+                          {
+                            "Trims": 299,
+                            "Haircut": 899,
+                          },
+                          "Scindia House, 7, Connaught Cir, Connaught Place, New Delhi, Delhi 110001",
+                          4.4,
+                          42),
                     ])))));
   }
 }
