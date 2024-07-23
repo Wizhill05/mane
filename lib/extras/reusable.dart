@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mane/screens/appoint.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -76,7 +77,7 @@ Image ImageWidget(String imageName, double x, double y) {
 AlertDialog alertMe(BuildContext context, String title, actions, contents) {
   return AlertDialog(
     actions: actions,
-    contentPadding: EdgeInsets.all(20),
+    contentPadding: const EdgeInsets.all(20),
     content: contents,
     title: Text(title),
   );
@@ -121,7 +122,7 @@ QrImageView genQR(String data) {
       return Center(
         child: Text(
           'Error: $error',
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
       );
     },
@@ -130,6 +131,7 @@ QrImageView genQR(String data) {
 
 Container newcard(
   BuildContext context,
+  String id,
   String title,
   String desc,
   Map types,
@@ -142,32 +144,30 @@ Container newcard(
       child: Card(
           elevation: 10,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
           ),
           color: Dark,
           child: Container(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
               child: Column(children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Container(
-                    child: Text(
-                      "$title",
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.josefinSans(
-                        fontSize: 24,
-                        color: toColor("d4d4d4"),
-                        fontWeight: FontWeight.w800,
-                      ),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.josefinSans(
+                      fontSize: 24,
+                      color: toColor("d4d4d4"),
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   width: MediaQuery.of(context).size.width * 0.9 - 30,
                   child: Text(
-                    "$desc",
+                    desc,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.dmSans(
                       fontSize: 16,
@@ -177,7 +177,7 @@ Container newcard(
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                   child: HorizontalTextList(
                     texts: types.keys.map((e) => e.toString()).toList(),
                     textStyle: GoogleFonts.dmSans(
@@ -188,11 +188,11 @@ Container newcard(
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   width: MediaQuery.of(context).size.width * 0.9 - 30,
                   child: Text(
-                    "$address",
+                    address,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.dmSans(
                       fontSize: 14,
@@ -202,8 +202,8 @@ Container newcard(
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   width: MediaQuery.of(context).size.width * 0.9 - 30,
                   child: Text(
                     "Rated: ${" ★" * rating.round()}  ($noOfRating)",
@@ -215,24 +215,29 @@ Container newcard(
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Divider(
                   height: 1,
                   color: toColor("d4d4d4"),
                 ),
-                SizedBox(
-                  height: 5,
+                const SizedBox(
+                  height: 10,
                 ),
                 Container(
                   decoration: BoxDecoration(
                     color: toColor("ffffff").withOpacity(0.1),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                   ),
                   width: MediaQuery.of(context).size.width * 0.9 - 50,
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => makeAppointment(id)));
+                      },
                       child: Text(
                         "Make Appointment",
                         style: GoogleFonts.josefinSans(
@@ -249,7 +254,7 @@ Widget typeWidget(String text) {
   return Container(
     color: toColor("ffffff").withOpacity(0.2),
     padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-    margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+    margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
     child: Text(
       text,
       style: GoogleFonts.dmSans(
@@ -294,7 +299,8 @@ class TextWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: toColor("ffffff").withOpacity(0.2), // background color
 
-        borderRadius: BorderRadius.all(Radius.circular(5)), // rounded corners
+        borderRadius:
+            const BorderRadius.all(Radius.circular(5)), // rounded corners
       ),
       padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       margin: const EdgeInsets.only(right: 5),

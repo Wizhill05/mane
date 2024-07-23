@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mane/extras/reusable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mane/main.dart';
+
 class Shop extends StatefulWidget {
   const Shop({super.key});
 
@@ -10,10 +14,31 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
+  Map<String, dynamic>? saloons = {
+    "Saloons 1": {
+      "name": "null",
+      "tagline": "null",
+      "service": {"null": 0},
+      "address": "null",
+      "rating": 0.0,
+      "reviews": 0,
+    },
+  };
+
+  void initState() {
+    super.initState();
+    getSaloonData().then((data) {
+      setState(() {
+        saloons = data;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           elevation: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -26,8 +51,8 @@ class _ShopState extends State<Shop> {
             child: Text(
               "Saloons",
               style: GoogleFonts.josefinSans(
-                fontSize: 36,
-                color: toColor("ccccdd"),
+                fontSize: 32,
+                color: toColor("#e3e8f0"),
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -35,10 +60,10 @@ class _ShopState extends State<Shop> {
 
           backgroundColor: Dark,
 
-          toolbarHeight: 80, // Increase the height of the AppBar
+          toolbarHeight: 70, // Increase the height of the AppBar
         ),
         body: Container(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
@@ -46,19 +71,20 @@ class _ShopState extends State<Shop> {
             ),
             child: SingleChildScrollView(
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(children: <Widget>[
-                      newcard(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Column(
+                      children: saloons!.keys.map((key) {
+                        return newcard(
                           context,
-                          "Nayeem Hair Cut Saloon",
-                          "Where Style Meets Perfection",
-                          {
-                            "Trims": 299,
-                            "Haircut": 899,
-                          },
-                          "Scindia House, 7, Connaught Cir, Connaught Place, New Delhi, Delhi 110001",
-                          4.4,
-                          42),
-                    ])))));
+                          key,
+                          saloons![key]["name"],
+                          saloons![key]["tagline"],
+                          saloons![key]["service"],
+                          saloons![key]["address"],
+                          saloons![key]["rating"],
+                          saloons![key]["reviews"],
+                        );
+                      }).toList(),
+                    )))));
   }
 }

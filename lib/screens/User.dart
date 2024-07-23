@@ -33,7 +33,7 @@ Future<userData> getUserData() async {
     email = await (_userData['email'] as FutureOr<String>?) ?? 'default';
     type = await (_userData['type'] as FutureOr<String>?) ?? 'default';
   }
-  debugPrint("${name},${email},$type");
+  debugPrint("$name,$email,$type");
   return userData(name: name, email: email, type: type);
 }
 
@@ -52,6 +52,7 @@ class _UserState extends State<User> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           elevation: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -64,8 +65,8 @@ class _UserState extends State<User> {
             child: Text(
               "User Settings",
               style: GoogleFonts.josefinSans(
-                fontSize: 24,
-                color: toColor("ccccdd"),
+                fontSize: 32,
+                color: toColor("#e3e8f0"),
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -73,7 +74,7 @@ class _UserState extends State<User> {
 
           backgroundColor: Dark,
 
-          toolbarHeight: 60, // Increase the height of the AppBar
+          toolbarHeight: 70, // Increase the height of the AppBar
         ),
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -83,27 +84,27 @@ class _UserState extends State<User> {
             ),
             child: Column(children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
                 child: Container(
                   child: Text(
                     "Hello ${_userData?.name}!",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.josefinSans(
-                      fontSize: 30,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 40,
                       color: toColor("121212"),
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: Container(
                   child: Text(
                     "You are signed in with \n${_userData?.email}",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.josefinSans(
-                      fontSize: 15,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 20,
                       color: toColor("121212"),
                       fontWeight: FontWeight.w800,
                     ),
@@ -119,7 +120,7 @@ class _UserState extends State<User> {
                   FirebaseAuth.instance.signOut();
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => SignIn()),
+                    MaterialPageRoute(builder: (context) => const SignIn()),
                     (Route<dynamic> route) => false,
                   );
                 },

@@ -17,7 +17,7 @@ Future<void> main() async {
   var connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.none) {
     debugPrint("Connection Error");
-    SnackBar(
+    const SnackBar(
       content: Text("Connection Error, Try Again"),
     );
     return;
@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
         title: 'Mane',
         theme: ThemeData(
           useMaterial3: false,
-          primarySwatch: Colors.lightBlue,
+          primarySwatch: Colors.indigo,
           fontFamily: GoogleFonts.josefinSans().fontFamily,
         ),
         home: AuthenticationWrapper());
@@ -64,14 +64,14 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     if (user != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => navigation()),
+        MaterialPageRoute(builder: (context) => const navigation()),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SignIn();
+    return const SignIn();
   }
 }
 
@@ -113,4 +113,15 @@ getUID() {
   User? currentUser = auth.currentUser;
   String uid = currentUser?.uid ?? 'Login Error';
   return uid;
+}
+
+Future<Map<String, dynamic>> getSaloonData() async {
+  final firestore = FirebaseFirestore.instance;
+  final collection = firestore.collection('shops');
+  final querySnapshot = await collection.get();
+  final data = <String, dynamic>{};
+  for (var doc in querySnapshot.docs) {
+    data[doc.id] = doc.data();
+  }
+  return data;
 }

@@ -14,6 +14,7 @@ class _BookingsState extends State<Bookings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           elevation: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -26,8 +27,8 @@ class _BookingsState extends State<Bookings> {
             child: Text(
               "Bookings",
               style: GoogleFonts.josefinSans(
-                fontSize: 24,
-                color: toColor("ccccdd"),
+                fontSize: 32,
+                color: toColor("#e3e8f0"),
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -35,7 +36,7 @@ class _BookingsState extends State<Bookings> {
 
           backgroundColor: Dark,
 
-          toolbarHeight: 60, // Increase the height of the AppBar
+          toolbarHeight: 70, // Increase the height of the AppBar
         ),
         body: Container(
             width: MediaQuery.of(context).size.width,
