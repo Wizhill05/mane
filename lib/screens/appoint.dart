@@ -21,6 +21,14 @@ class makeAppointment extends StatefulWidget {
 
 class _makeAppointmentState extends State<makeAppointment> {
   final String id;
+  List<Map> categories = [
+    {"service": "Swimming", "price": 300, "isChecked": false},
+    {"service": "Cycling", "price": 300, "isChecked": false},
+    {"service": "Tennis", "price": 300, "isChecked": false},
+    {"service": "Boxing", "price": 300, "isChecked": false},
+    {"service": "Volleyball ", "price": 300, "isChecked": false},
+    {"service": "Bowling ", "price": 300, "isChecked": false},
+  ];
 
   _makeAppointmentState(this.id);
 
@@ -71,7 +79,97 @@ class _makeAppointmentState extends State<makeAppointment> {
 
           toolbarHeight: 70, // Increase the height of the AppBar
         ),
-        body: Container());
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: InkWell(
+          onTap: () {
+            SelectedItems(categories);
+          },
+          splashColor: Dark.withAlpha(200),
+          child: Container(
+            height: 60,
+            width: MediaQuery.of(context).size.width - 160,
+            decoration: BoxDecoration(
+              color: Dark,
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(40)), // Make it pill-shaped
+            ),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Icon(Icons.shopping_cart, color: Colors.white),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Book Appointment",
+                  style: GoogleFonts.josefinSans(
+                    fontSize: 16,
+                    color: toColor("#e3e8f0"),
+                    fontWeight: FontWeight.w800,
+                  ),
+                )
+              ]),
+            ),
+          ),
+        ),
+        body: Container(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              color: toColor("d4d4d4"),
+            ),
+            child: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Column(children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 80,
+                        child: Text(
+                          "Choose The Services You Want:",
+                          style: GoogleFonts.dmSans(
+                              fontSize: 20,
+                              color: Dark,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Divider(
+                        color: Colors.black26,
+                        height: 10,
+                        thickness: 2,
+                      ),
+                      const SizedBox(height: 10),
+                      Column(
+                          children: categories.map((favorite) {
+                        return CheckboxListTile(
+                            controlAffinity: ListTileControlAffinity.leading,
+                            activeColor: Dark,
+                            checkboxShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            value: favorite["isChecked"],
+                            title: Text(
+                              favorite["service"],
+                              style: GoogleFonts.dmSans(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: Text("₹${favorite["price"]}",
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 18,
+                                  color: Dark,
+                                  fontWeight: FontWeight.w700,
+                                  fontStyle: FontStyle.italic,
+                                )),
+                            onChanged: (val) {
+                              setState(() {
+                                favorite["isChecked"] = val;
+                              });
+                            });
+                      }).toList()),
+                    ])))));
   }
 }
 
@@ -83,4 +181,17 @@ Future<Map<String, dynamic>> getOneSaloonData(String documentId) async {
   final docSnapshot = await docRef.get();
 
   return docSnapshot.data() as Map<String, dynamic>;
+}
+
+Map<String, int> SelectedItems(List categories) {
+  Map<String, int> selectedItems = {};
+
+  for (var category in categories) {
+    if (category["isChecked"]) {
+      selectedItems[category["service"]] = category["price"];
+    }
+  }
+
+  debugPrint("Selected items: $selectedItems");
+  return selectedItems;
 }
