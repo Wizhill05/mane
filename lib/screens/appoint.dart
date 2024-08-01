@@ -22,12 +22,7 @@ class makeAppointment extends StatefulWidget {
 class _makeAppointmentState extends State<makeAppointment> {
   final String id;
   List<Map> categories = [
-    {"service": "Swimming", "price": 300, "isChecked": false},
-    {"service": "Cycling", "price": 300, "isChecked": false},
-    {"service": "Tennis", "price": 300, "isChecked": false},
-    {"service": "Boxing", "price": 300, "isChecked": false},
-    {"service": "Volleyball ", "price": 300, "isChecked": false},
-    {"service": "Bowling ", "price": 300, "isChecked": false},
+    {"service": "null", "price": 0, "isChecked": false},
   ];
 
   _makeAppointmentState(this.id);
@@ -47,6 +42,7 @@ class _makeAppointmentState extends State<makeAppointment> {
     getOneSaloonData(id).then((data) {
       setState(() {
         saloon = data;
+        categories = mapToListOfMaps(data["service"]);
       });
     });
   }
@@ -127,7 +123,8 @@ class _makeAppointmentState extends State<makeAppointment> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 80,
                         child: Text(
-                          "Choose The Services You Want:",
+                          "Choose The Services You Want",
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.dmSans(
                               fontSize: 20,
                               color: Dark,
@@ -194,4 +191,14 @@ Map<String, int> SelectedItems(List categories) {
 
   debugPrint("Selected items: $selectedItems");
   return selectedItems;
+}
+
+List<Map<String, dynamic>> mapToListOfMaps(Map<String, dynamic> inputMap) {
+  return inputMap.entries.map((entry) {
+    return {
+      "service": entry.key,
+      "price": entry.value,
+      "isChecked": false,
+    };
+  }).toList();
 }
