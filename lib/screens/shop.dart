@@ -63,7 +63,7 @@ class _ShopState extends State<Shop> {
           toolbarHeight: 70, // Increase the height of the AppBar
         ),
         body: Container(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
@@ -73,18 +73,30 @@ class _ShopState extends State<Shop> {
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(
-                      children: saloons!.keys.map((key) {
-                        return newcard(
-                          context,
-                          key,
-                          saloons![key]["name"],
-                          saloons![key]["tagline"],
-                          saloons![key]["service"],
-                          saloons![key]["address"],
-                          saloons![key]["rating"],
-                          saloons![key]["reviews"],
-                        );
-                      }).toList(),
+                      children: [
+                            Container(
+                                child: SizedBox(
+                              height: 10,
+                            ))
+                          ] +
+                          saloons!.keys.map((key) {
+                            return newcard(
+                              context,
+                              key,
+                              saloons![key]["name"],
+                              saloons![key]["tagline"],
+                              saloons![key]["service"],
+                              saloons![key]["address"],
+                              saloons![key]["rating"],
+                              saloons![key]["reviews"],
+                            );
+                          }).toList() +
+                          [
+                            Container(
+                                child: SizedBox(
+                              height: 30,
+                            ))
+                          ],
                     )))));
   }
 }

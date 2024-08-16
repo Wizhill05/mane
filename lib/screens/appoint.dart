@@ -90,7 +90,7 @@ class _makeAppointmentState extends State<makeAppointment> {
                   Radius.circular(40)), // Make it pill-shaped
             ),
             child: Container(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Icon(Icons.shopping_cart, color: Colors.white),

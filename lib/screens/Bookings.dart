@@ -44,7 +44,7 @@ class _BookingsState extends State<Bookings> {
             decoration: BoxDecoration(
               color: toColor("d4d4d4"),
             ),
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(children: <Widget>[])))));

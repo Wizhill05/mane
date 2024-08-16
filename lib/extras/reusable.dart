@@ -141,113 +141,121 @@ Container newcard(
 ) {
   return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      child: Card(
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          color: Dark,
-          child: Container(
-              padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
-              child: Column(children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.josefinSans(
-                      fontSize: 24,
-                      color: toColor("d4d4d4"),
-                      fontWeight: FontWeight.w800,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(width: 7, color: Dark),
+            ),
+            color: toColor("dddddd"),
+            child: Container(
+                padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
+                child: Column(children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.josefinSans(
+                        fontSize: 24,
+                        color: toColor("101010"),
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  width: MediaQuery.of(context).size.width * 0.9 - 30,
-                  child: Text(
-                    desc,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.dmSans(
-                      fontSize: 16,
-                      color: toColor("d4d4d4"),
-                      fontWeight: FontWeight.w400,
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width * 0.9 - 30,
+                    child: Text(
+                      desc,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 16,
+                        color: toColor("101010"),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                  child: HorizontalTextList(
-                    texts: types.keys.map((e) => e.toString()).toList(),
-                    textStyle: GoogleFonts.dmSans(
-                      fontSize: 16,
-                      color: toColor("d4d4d4"),
-                      fontWeight: FontWeight.w400,
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    child: HorizontalTextList(
+                      texts: types.keys.map((e) => e.toString()).toList(),
+                      textStyle: GoogleFonts.dmSans(
+                        fontSize: 16,
+                        color: toColor("101010"),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  width: MediaQuery.of(context).size.width * 0.9 - 30,
-                  child: Text(
-                    address,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.dmSans(
-                      fontSize: 14,
-                      color: toColor("d4d4d4"),
-                      fontWeight: FontWeight.w400,
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width * 0.9 - 30,
+                    child: Text(
+                      address,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 14,
+                        color: toColor("101010"),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  width: MediaQuery.of(context).size.width * 0.9 - 30,
-                  child: Text(
-                    "Rated: ${" ★" * rating.round()}  ($noOfRating)",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.dmSans(
-                      fontSize: 16,
-                      color: toColor("d4d4d4"),
-                      fontWeight: FontWeight.w700,
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width * 0.9 - 30,
+                    child: Text(
+                      "Rated: ${" ★" * rating.round()}  ($noOfRating)",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 16,
+                        color: toColor("101010"),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Divider(
-                  height: 1,
-                  color: toColor("d4d4d4"),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: toColor("ffffff").withOpacity(0.1),
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  const SizedBox(
+                    height: 15,
                   ),
-                  width: MediaQuery.of(context).size.width * 0.9 - 50,
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => makeAppointment(id)));
-                      },
-                      child: Text(
-                        "Make Appointment",
-                        style: GoogleFonts.josefinSans(
-                          fontSize: 22,
-                          color: toColor("d4d4d4"),
-                          fontWeight: FontWeight.w800,
-                        ),
-                      )),
-                )
-              ]))));
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 2,
+                      color: toColor("101010"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Dark,
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.9 - 50,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => makeAppointment(id)));
+                        },
+                        child: Text(
+                          "Make Appointment",
+                          style: GoogleFonts.josefinSans(
+                            fontSize: 22,
+                            color: toColor("d4d4d4"),
+                            fontWeight: FontWeight.w800,
+                          ),
+                        )),
+                  )
+                ]))),
+      ));
 }
 
 Widget typeWidget(String text) {

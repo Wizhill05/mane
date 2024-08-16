@@ -25,7 +25,7 @@ class _navigationState extends State<navigation> {
 
   @override
   Widget build(BuildContext context) {
-    double pad = MediaQuery.of(context).size.width / 2 - 160;
+    double pad = MediaQuery.of(context).size.width / 2 - 140;
     if (pad <= 20) {
       pad = 20;
     }
@@ -35,16 +35,16 @@ class _navigationState extends State<navigation> {
           child: _pages.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.fromLTRB(pad, 0, pad, 0),
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           decoration: BoxDecoration(
             color: Dark,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+            padding: EdgeInsets.fromLTRB(pad, 2, pad, 0),
             child: GNav(
               gap: 3,
               tabs: const [
