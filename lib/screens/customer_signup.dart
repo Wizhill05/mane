@@ -34,7 +34,7 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Shop()),
+                        MaterialPageRoute(builder: (context) => const navigation()),
                         (Route<dynamic> route) => false,
                       );
                     },
